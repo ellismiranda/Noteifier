@@ -21,6 +21,7 @@ function lookupCommand(command, callback) {
     resultList.forEach((process) => {
       if (process.command === command && !found) {
         console.log("Found one!");
+        found = true;
         callback();
       }
     })
