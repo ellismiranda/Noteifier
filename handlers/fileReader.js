@@ -12,7 +12,8 @@ function checkFiles(callback) {
 function contains(file, keyword) {
   const p = path.join(__dirname + '/../Documents/') + file;
   const str = fs.readFileSync(p, 'utf8');
-  return (str.includes(keyword));
+  const lowerCase = str.toLowerCase();
+  return (lowerCase.includes(keyword));
 }
 
 module.exports = {
