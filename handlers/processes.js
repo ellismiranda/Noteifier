@@ -15,9 +15,9 @@ const ps = require('ps-node');
 //   })
 // })
 
-function lookupCommand(command, callback) {
+function lookupAll(command, callback) {
   let found = false;
-  return ps.lookup({ }, (err, resultList) => {
+  ps.lookup({ }, (err, resultList) => {
     resultList.forEach((process) => {
       if (process.command === command && !found) {
         console.log("Found one!");
@@ -28,6 +28,16 @@ function lookupCommand(command, callback) {
   })
 }
 
+function lookupProcess(command, callback) {
+  return ps.lookup({ command }, (err, resultList) => {
+    const process = resultList[0];
+    if (process) {
+      callback();
+    }
+  })
+}
+
 module.exports = {
-  lookupCommand
+  lookupCommand,
+  lookupAll
 }
