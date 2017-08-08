@@ -14,7 +14,19 @@ function appToKeyword(app) {
   }
 }
 
+function appToName(app) {
+  switch (app) {
+    case '/Applications/RuneScape.app/Contents/MacOS/RuneScape':
+      return 'RuneScape';
+    case '/Applications/Google':
+      return 'Google Chrome';
+    default:
+      return '';
+  }
+}
+
 module.exports = {
   DESIRED,
   appToKeyword,
+  appToName
 }
