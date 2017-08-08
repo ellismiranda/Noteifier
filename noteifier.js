@@ -22,9 +22,7 @@ const pathToDocs = __dirname + '/Documents/';
 let accountedFor = [];
 
 setInterval( function() {
-  console.log('checking!');
   DESIRED.forEach((application) => {
-    console.log(`looking at ${application}`);
     if (!accountedFor.includes(application)) {
       lookupCommand(application, function() {
         const name = appToName(application);
