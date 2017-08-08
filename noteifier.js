@@ -2,7 +2,7 @@ const env = require('node-env-file')(__dirname + '/.env');
 const { checkFiles, contains } = require('./handlers/fileReader');
 const { sendNotification } = require('./handlers/notifier');
 const { execute, open, openManyFiles } = require('./handlers/execution');
-const { lookupCommand } = require('./handlers/processes');
+const { lookupProcess } = require('./handlers/processes');
 
 const { DESIRED, appToKeyword, appToName } = require('./models/constants');
 

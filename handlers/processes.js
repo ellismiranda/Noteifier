@@ -38,6 +38,6 @@ function lookupProcess(command, callback) {
 }
 
 module.exports = {
-  lookupCommand,
+  lookupProcess,
   lookupAll
 }
