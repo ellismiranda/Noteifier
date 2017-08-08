@@ -24,7 +24,7 @@ let accountedFor = [];
 setInterval( function() {
   DESIRED.forEach((application) => {
     if (!accountedFor.includes(application)) {
-      lookupCommand(application, function() {
+      lookupProcess(application, function() {
         const name = appToName(application);
         const files = checkFiles(file => contains(file, appToKeyword(application)));
         if (files) {
