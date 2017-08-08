@@ -4,7 +4,7 @@ const { sendNotification } = require('./handlers/notifier');
 const { execute, open, openManyFiles } = require('./handlers/execution');
 const { lookupCommand } = require('./handlers/processes');
 
-const { DESIRED, appToKeyword } = require('./models/constants');
+const { DESIRED, appToKeyword, appToName } = require('./models/constants');
 
 const pathToDocs = __dirname + '/Documents/';
 
@@ -17,22 +17,40 @@ const pathToDocs = __dirname + '/Documents/';
 [X]       if there are any files, send the notification
 [X]         if the notification is clicked
 [X]           open the files
-
-FOR A SINGLE PROCESS:
- *checks if they're currently open
 */
 
-function singleApplication() {
-  lookupCommand(DESIRED[0], function() {
-    const files = checkFiles(file => contains(file, appToKeyword(DESIRED[0])));
-    console.log(files);
-    if (files) {
-      sendNotification('click on me!', 'I have some files for you!', files, openManyFiles);
+let accountedFor = [];
+
+setInterval( function() {
+  console.log('checking!');
+  DESIRED.forEach((application) => {
+    console.log(`looking at ${application}`);
+    if (!accountedFor.includes(application)) {
+      lookupCommand(application, function() {
+        const name = appToName(application);
+        const files = checkFiles(file => contains(file, appToKeyword(application)));
+        if (files) {
+          accountedFor.push(application);
+          sendNotification('Noteifier', `Click on me to open your notes about ${name}!`, files, openManyFiles);
+        }
+      })
+
     }
   })
-}
+} , 10000)
 
-//FOR LATER IF NEEDED
+
+//COMMENTED OUT FOR LATER IF NEEDED
+// function singleApplication(application, title, msg) {
+//   lookupCommand(application, function() {
+//     const files = checkFiles(file => contains(file, appToKeyword(application)));
+//     if (files) {
+//       sendNotification(title, msg, files, openManyFiles);
+//     }
+//   })
+// }
+
+//COMMENTED OUT FOR LATER IF NEEDED
 // function multipleApplications() {
 //   DESIRED.forEach((application) => {
 //     lookupCommand(DESIRED[0], function() {
@@ -44,5 +62,3 @@ function singleApplication() {
 //     })
 //   })
 // }
-
-multipleApplications();
