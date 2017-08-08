@@ -32,6 +32,7 @@ function singleApplication() {
   })
 }
 
+//FOR LATER IF NEEDED
 // function multipleApplications() {
 //   DESIRED.forEach((application) => {
 //     lookupCommand(DESIRED[0], function() {
