@@ -29,7 +29,7 @@ function lookupAll(command, callback) {
 }
 
 function lookupProcess(command, callback) {
-  return ps.lookup({ command }, (err, resultList) => {
+  ps.lookup({ command }, (err, resultList) => {
     const process = resultList[0];
     if (process) {
       callback();
@@ -38,6 +38,6 @@ function lookupProcess(command, callback) {
 }
 
 module.exports = {
-  lookupCommand,
+  lookupProcess,
   lookupAll
 }

@@ -2,7 +2,7 @@ const env = require('node-env-file')(__dirname + '/.env');
 const { checkFiles, contains } = require('./handlers/fileReader');
 const { sendNotification } = require('./handlers/notifier');
 const { execute, open, openManyFiles } = require('./handlers/execution');
-const { lookupCommand } = require('./handlers/processes');
+const { lookupProcess } = require('./handlers/processes');
 
 const { DESIRED, appToKeyword, appToName } = require('./models/constants');
 
@@ -21,6 +21,14 @@ const pathToDocs = __dirname + '/Documents/';
 
 let accountedFor = [];
 
+//initial load of all open applications
+DESIRED.forEach((application) => {
+  lookupProcess(application, function() {
+    accountedFor.push(application);
+  })
+})
+
+//main process on an interval loop
 setInterval( function() {
   DESIRED.forEach((application) => {
     if (!accountedFor.includes(application)) {
@@ -32,31 +40,6 @@ setInterval( function() {
           sendNotification('Noteifier', `Click on me to open your notes about ${name}!`, files, openManyFiles);
         }
       })
-
     }
   })
-} , 10000)
-
-
-//COMMENTED OUT FOR LATER IF NEEDED
-// function singleApplication(application, title, msg) {
-//   lookupCommand(application, function() {
-//     const files = checkFiles(file => contains(file, appToKeyword(application)));
-//     if (files) {
-//       sendNotification(title, msg, files, openManyFiles);
-//     }
-//   })
-// }
-
-//COMMENTED OUT FOR LATER IF NEEDED
-// function multipleApplications() {
-//   DESIRED.forEach((application) => {
-//     lookupCommand(DESIRED[0], function() {
-//       const files = checkFiles(file => contains(file, appToKeyword(DESIRED[0])));
-//       console.log(files);
-//       if (files) {
-//         sendNotification('click on me!', 'I have some files for you!', files, openManyFiles);
-//       }
-//     })
-//   })
-// }
+}, 10000)
