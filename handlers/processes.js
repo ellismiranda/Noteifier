@@ -28,11 +28,13 @@ function lookupAll(command, callback) {
   })
 }
 
-function lookupProcess(command, callback) {
+function lookupProcess(command, callback, errback) {
   ps.lookup({ command }, (err, resultList) => {
     const process = resultList[0];
     if (process) {
       callback();
+    } else {
+      errback();
     }
   })
 }

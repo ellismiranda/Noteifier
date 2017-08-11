@@ -25,21 +25,24 @@ let accountedFor = [];
 DESIRED.forEach((application) => {
   lookupProcess(application, function() {
     accountedFor.push(application);
-  })
+  }, () => {})
 })
 
 //main process on an interval loop
 setInterval( function() {
   DESIRED.forEach((application) => {
-    if (!accountedFor.includes(application)) {
-      lookupProcess(application, function() {
+    lookupProcess(application, function() {
+      if (!accountedFor.includes(application)) {
         const name = appToName(application);
         const files = checkFiles(file => contains(file, appToKeyword(application)));
         if (files) {
           accountedFor.push(application);
           sendNotification('Noteifier', `Click on me to open your notes about ${name}!`, files, openManyFiles);
         }
-      })
-    }
+      }
+    }, function() {
+      const index = accountedFor.indexOf(application)
+      if (index >= 0) accountedFor.splice(index, 1);
+    })
   })
-}, 10000)
+} , 2000)
