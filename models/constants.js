@@ -10,7 +10,7 @@ function appToKeyword(app) {
     case '/Applications/Google':
       return '[chrome]';
     default:
-      return 'safaszcxa';
+      return '';
   }
 }
 
