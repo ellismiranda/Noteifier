@@ -1,4 +1,7 @@
 # Don't want to leak your environment variables!
 .env
 
+#Pycharm
+.idea/
+
 node_modules

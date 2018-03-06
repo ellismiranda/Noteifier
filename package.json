@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "electron-packager . Noteifier --platform=darwin --arch=x64 --version=0.1.0 --icon=./assets/icon.png",
     "start": "electron ."
   },
   "repository": {
@@ -21,6 +22,7 @@
     "electron": "^1.7.8",
     "electron-packager": "^9.1.0",
     "fs": "0.0.1-security",
+    "menubar": "^5.2.3",
     "node-env-file": "^0.1.8",
     "node-notifier": "^5.1.2",
     "path": "^0.12.7",
