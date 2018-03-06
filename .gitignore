@@ -1,4 +1,8 @@
 # Don't want to leak your environment variables!
 .env
 
+#Pycharm
+.idea/
+__pycache__/
+
 node_modules
