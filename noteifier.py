@@ -30,6 +30,7 @@ def wrapper(fun):
 
 class Noteifier():
     def __init__(self):
+        self.accounted_for = [p for p in get_active_processes() if p in monitored_applications]
         self.paused = threading.Event()
         self.paused.clear()
 
@@ -38,13 +39,13 @@ class Noteifier():
             while not self.paused.is_set():
                 for application in monitored_applications:
                     if lookup_process(application):
-                        if application not in accounted_for:
+                        if application not in self.accounted_for:
                             files = check_files(app_to_keyword(application))
                             if files:
                                 cmd = generate_open_files_command(files)
                                 time.sleep(2)
                                 notify(message='Click on me to open notes about {}'.format(app_to_name(application)), title='Noteifier', command=cmd)
-                                accounted_for.append(application)
+                                self.accounted_for.append(application)
 
     def pause(self):
         self.paused.set()
