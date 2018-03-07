@@ -23,8 +23,7 @@ def notify(message='default', title=None, subtitle=None, command=None):
     i = '-appIcon \"{}\"'.format(str(os.path.join(str(os.getcwd()), 'assets/icon.png')))
     t = '-title \"{}\"'.format(title) if title else ''
     s = '-subtitle \"{}\"'.format(subtitle) if subtitle else ''
-    e = '-execute \"{}\"'.format(command) if command else '' # THIS COMMAND MUST BE SURROUNDED BY \"
-    print(m, t, s, e)
+    e = '-execute \"{}\"'.format(command) if command else ''
     os.system('terminal-notifier {}'.format(' '.join([i, t, s, m, e])))
 
 
