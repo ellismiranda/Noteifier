@@ -30,11 +30,12 @@ def wrapper(fun):
 
 class Noteifier():
     def __init__(self):
-        self.paused = threading.Event().clear()
+        self.paused = threading.Event()
+        self.paused.clear()
 
     def run(self):
         while True:
-            if not self.paused.is_set():
+            while not self.paused.is_set():
                 for application in monitored_applications:
                     if lookup_process(application):
                         if application not in accounted_for:
