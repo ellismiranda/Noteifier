@@ -1,5 +1,5 @@
 from threading import Thread, Event
-from noteifier import noteifier
+from noteifier import noteifier, Noteifier
 import rumps
 
 
@@ -8,9 +8,9 @@ class TestMenuBarApp(rumps.App):
         super(TestMenuBarApp, self).__init__("Test App")
         self.icon = 'assets/icon.png'
         self.menu = ['RUNNING',]
-        self.paused = Event()
-        self.noteifier = Thread(target=noteifier, )
-        self.noteifier.start()
+        self.noteifier = Noteifier()
+        self.monitor = Thread(target=self.noteifier.run,)
+        self.monitor.start()
 
     # @rumps.clicked('sup')
     # def sup(self, _):
@@ -18,7 +18,7 @@ class TestMenuBarApp(rumps.App):
 
     @rumps.clicked('RUNNING')
     def running(self, sender):
-        self.paused.clear() if sender.title == 'PAUSED' else self.paused.set()
+        self.noteifier.resume() if sender.title == 'PAUSED' else self.noteifier.pause()
         # DO SOME FUN STUFF WITH THREADS AND CONDITIONS HERE YAY
         sender.title = 'RUNNING' if sender.title == 'PAUSED' else 'PAUSED'
 
