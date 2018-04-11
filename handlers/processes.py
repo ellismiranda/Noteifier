@@ -17,12 +17,12 @@ def get_active_applications():
     return [application for application in get_active_processes() if '/Applications' in application]
 
 
-def parse_application_names_from_processes(applications):
+def parse_application_names(applications):
     return {app.split('/')[2][:-4] for app in applications}
 
 
 def is_application_active(process):
-    return process in parse_application_names_from_processes(get_active_applications())
+    return process in parse_application_names(get_active_applications())
 
 
 def monitor_new_process():
