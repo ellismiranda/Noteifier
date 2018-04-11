@@ -1,5 +1,5 @@
 from models.constants import monitored_applications
-from handlers.processes import lookup_process, get_active_processes
+from handlers.processes import get_active_processes
 from handlers.tools import app_to_name, app_to_keyword, check_files, generate_open_files_command, notify
 import threading
 import time

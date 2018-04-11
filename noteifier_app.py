@@ -1,5 +1,3 @@
-from models.constants import monitored_applications
-from handlers.tools import app_to_name
 from noteifier import Noteifier
 from threading import Thread
 import random
