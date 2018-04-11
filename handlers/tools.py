@@ -50,7 +50,6 @@ def check_files(application):
 
 def generate_open_files_command(files):
     pathed_files = [str(os.getcwd()) + '/Documents/' + account_for_spaces(file) for file in files]
-    print(pathed_files)
     return 'open {}'.format(' '.join(pathed_files))
 
 

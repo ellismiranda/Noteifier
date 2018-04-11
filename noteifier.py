@@ -1,4 +1,4 @@
-from models.constants import monitored_applications, monitored_applications2
+from models.constants import monitored_applications
 from handlers.processes import parse_application_names, get_active_applications
 from handlers.tools import check_files, generate_open_files_command, notify
 import threading
@@ -7,7 +7,7 @@ import time
 
 class Noteifier():
     def __init__(self):
-        self.accounted_for = {app for app in parse_application_names(get_active_applications()) if app in monitored_applications2}
+        self.accounted_for = {app for app in parse_application_names(get_active_applications()) if app in monitored_applications}
         self.paused = threading.Event()
         self.paused.clear()
 
@@ -16,7 +16,7 @@ class Noteifier():
             while not self.paused.is_set():
                 applications_open = get_active_applications()
                 open_application_names = parse_application_names(applications_open)
-                for application in monitored_applications2:
+                for application in monitored_applications:
                     if application in open_application_names and application not in self.accounted_for:
                         files = check_files(application)
                         if files:
