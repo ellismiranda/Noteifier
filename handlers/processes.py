@@ -3,7 +3,7 @@ import subprocess
 import re
 
 
-def lookup_process(process):
+def is_process_active(process):
     return process in get_active_processes()
 
 
@@ -21,14 +21,14 @@ def parse_application_names_from_processes(applications):
     return {app.split('/')[2][:-4] for app in applications}
 
 
-def is_process_active(process):
+def is_application_active(process):
     return process in parse_application_names_from_processes(get_active_applications())
 
 
 def monitor_new_process():
     print('Please make sure the desired application is running before attempting to add it.')
     new_app = input('Enter the name of the new application to monitor: ')
-    while not is_process_active(new_app):
+    while not is_application_active(new_app):
         print('Can\'t find {} running. Please double check the name and that the app is running.'.format(new_app))
         new_app = input('Enter the name of the new application to monitor: ')
     if new_app in monitored_applications2:
