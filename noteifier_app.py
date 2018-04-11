@@ -1,6 +1,6 @@
 from noteifier import Noteifier
 from threading import Thread
-import random
+from handlers import tools
 import rumps
 import os
 
@@ -21,19 +21,11 @@ class NoteifierApp(rumps.App):
         sender.title = 'Status: RUNNING' if sender.title == 'Status: PAUSED' else 'Status: PAUSED'
 
     @rumps.clicked('New Note')
-    def meh(self, sender):
+    def note(self, sender):
         sender.title = 'New Note'
         response = rumps.Window(title='New Note', message="Please include your desired application tag.", cancel=True).run()
         if response.clicked:
-            # THIS HAS ISSUES, DOESNT ACTUALLY OPEN THE RIGHT DIRECTORY
-            files = os.listdir(self.currdir + '/Documents')
-            num = str(random.randint(0,10000)) + '.txt'
-            print(num)
-            while num in files:
-                num = str(random.randint(0,10000)) + '.txt'
-                print(num)
-            with open(self.currdir + '/Documents/{}.txt'.format(num), 'w') as f:
-                f.write(response.text)
+            tools.new_note(response.text, self.currdir)
 
 
 if __name__ == '__main__':

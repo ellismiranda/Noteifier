@@ -1,13 +1,14 @@
 from models.constants import monitored_applications
 import os
+import random
 
 
-def app_to_keyword(app):
-    return monitored_applications[app][1]
+# def app_to_keyword(app):
+#     return monitored_applications[app][1]
 
 
-def app_to_name(app):
-    return monitored_applications[app][0]
+# def app_to_name(app):
+#     return monitored_applications[app][0]
 
 
 def account_for_spaces(string):
@@ -27,26 +28,37 @@ def notify(message='default', title=None, subtitle=None, command=None):
     os.system('terminal-notifier {}'.format(' '.join([i, t, s, m, e])))
 
 
-def open_many_files(files):
-    cwd = os.getcwd()
-    for file in files:
-        os.system('open {}'.format(os.path.join(str(cwd), 'Documents/', file)))
+# def open_many_files(files):
+#     cwd = os.getcwd()
+#     for file in files:
+#         os.system('open {}'.format(os.path.join(str(cwd), 'Documents/', file)))
 
 
-def contains(file, keyword):
-    with open(os.path.join(str(os.getcwd()), 'Documents/', file), 'r') as f:
-        return keyword in f.read()
+# def contains(file, keyword):
+#     with open(os.path.join(str(os.getcwd()), 'Documents/', file), 'r') as f:
+#         return keyword in f.read()
 
 
 def get_documents():
     return os.listdir(os.path.join(str(os.getcwd()), 'Documents/'))
 
 
-def check_files(keyword):
+def check_files(application):
     files = get_documents()
-    return [f for f in files if f != '.DS_Store' and contains(f, keyword)]
+    return [f for f in files if application in f]
 
 
 def generate_open_files_command(files):
-    pathed_files = [str(os.getcwd()) + '/Documents/' + file for file in files]
+    pathed_files = [str(os.getcwd()) + '/Documents/' + account_for_spaces(file) for file in files]
     return 'open {}'.format(' '.join(pathed_files))
+
+
+def new_note(content, dirr):
+    files = os.listdir(dirr + '/Documents')
+    num = str(random.randint(0, 10000)) + '.txt'
+    print(num)
+    while num in files:
+        num = str(random.randint(0, 10000)) + '.txt'
+        print(num)
+    with open(dirr + '/Documents/{}.txt'.format(num), 'w') as f:
+        f.write(content)
