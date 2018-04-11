@@ -3,12 +3,12 @@ import os
 import random
 
 
-def app_to_keyword(app):
-    return monitored_applications[app][1]
+# def app_to_keyword(app):
+#     return monitored_applications[app][1]
 
 
-def app_to_name(app):
-    return monitored_applications[app][0]
+# def app_to_name(app):
+#     return monitored_applications[app][0]
 
 
 def account_for_spaces(string):
