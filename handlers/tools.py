@@ -1,4 +1,3 @@
-from models.constants import monitored_applications
 import os
 import random
 
@@ -53,12 +52,10 @@ def generate_open_files_command(files):
     return 'open {}'.format(' '.join(pathed_files))
 
 
-def new_note(content, dirr):
+def new_note(app_name, content, dirr):
     files = os.listdir(dirr + '/Documents')
-    num = str(random.randint(0, 10000)) + '.txt'
-    print(num)
-    while num in files:
-        num = str(random.randint(0, 10000)) + '.txt'
-        print(num)
-    with open(dirr + '/Documents/{}.txt'.format(num), 'w') as f:
+    file_name = app_name + '-' + str(random.randint(0, 10000)) + '.txt'
+    while file_name in files:
+        file_name = app_name + '-' + str(random.randint(0, 10000)) + '.txt'
+    with open(dirr + '/Documents/{}.txt'.format(file_name), 'w') as f:
         f.write(content)
