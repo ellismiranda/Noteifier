@@ -1,9 +1,10 @@
 from noteifier import Noteifier
 from threading import Thread
 from models.designs import NewNoteDialog
+from handlers import tools
 from models.constants import app_menu, monitored_applications
 import rumps
-import os
+import os   
 import wx
 
 
