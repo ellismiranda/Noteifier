@@ -1,4 +1,4 @@
-from noteifier import Noteifier
+from models.noteifier import Noteifier
 from threading import Thread
 from handlers import tools
 from models.constants import app_menu, monitored_applications
