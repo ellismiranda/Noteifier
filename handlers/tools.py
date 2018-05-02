@@ -30,16 +30,16 @@ def notify(message='default', title=None, subtitle=None, command=None):
 # def open_many_files(files):
 #     cwd = os.getcwd()
 #     for file in files:
-#         os.system('open {}'.format(os.path.join(str(cwd), 'Documents/', file)))
+#         os.system('open {}'.format(os.path.join(str(cwd), 'documents/', file)))
 
 
 # def contains(file, keyword):
-#     with open(os.path.join(str(os.getcwd()), 'Documents/', file), 'r') as f:
+#     with open(os.path.join(str(os.getcwd()), 'documents/', file), 'r') as f:
 #         return keyword in f.read()
 
 
 def get_documents():
-    return os.listdir(os.path.join(str(os.getcwd()), 'Documents/'))
+    return os.listdir(os.path.join(str(os.getcwd()), 'documents/'))
 
 
 def check_files(application):
@@ -48,14 +48,14 @@ def check_files(application):
 
 
 def generate_open_files_command(files):
-    pathed_files = [str(os.getcwd()) + '/Documents/' + account_for_spaces(file) for file in files]
+    pathed_files = [str(os.getcwd()) + '/documents/' + account_for_spaces(file) for file in files]
     return 'open {}'.format(' '.join(pathed_files))
 
 
 def new_note(app_name, content, dirr):
-    files = os.listdir(dirr + '/Documents')
+    files = os.listdir(dirr + '/documents')
     file_name = app_name + '-' + str(random.randint(0, 10000)) + '.txt'
     while file_name in files:
         file_name = app_name + '-' + str(random.randint(0, 10000)) + '.txt'
-    with open(dirr + '/Documents/{}.txt'.format(file_name), 'w') as f:
+    with open(dirr + '/documents/{}.txt'.format(file_name), 'w') as f:
         f.write(content)
