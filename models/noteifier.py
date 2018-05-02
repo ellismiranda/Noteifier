@@ -23,9 +23,13 @@ class Noteifier():
                         time.sleep(2)
                         notify(message='Click on me to open notes about {}'.format(application), title='Noteifier', command=cmd)
                     self.accounted_for.add(application)
+            self.clean_accounted_for()
 
     def pause(self):
         self.paused.set()
 
     def resume(self):
         self.paused.clear()
+
+    def clean_accounted_for(self):
+        self.accounted_for = {app for app in self.accounted_for if app in parse_application_names(get_active_applications())}
