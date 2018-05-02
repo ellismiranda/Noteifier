@@ -25,16 +25,8 @@ def is_application_active(process):
     return process in parse_application_names(get_active_applications())
 
 
-def monitor_new_process():
-    print('Please make sure the desired application is running before attempting to add it.')
-    new_app = input('Enter the name of the new application to monitor: ')
-    while not is_application_active(new_app):
-        print('Can\'t find {} running. Please double check the name and that the app is running.'.format(new_app))
-        new_app = input('Enter the name of the new application to monitor: ')
-    if new_app in monitored_applications:
-        print('Already monitoring {}.'.format(new_app))
-    else:
-        named_processes = [app for app in get_active_applications() if new_app in app]
-        monitored_applications[new_app] = named_processes
-        print('Added {}.'.format(new_app))
+def monitor_new_process(app_name):
+    named_processes = [app for app in get_active_applications() if app_name in app]
+    monitored_applications[app_name] = named_processes
+    print('Added {}.'.format(app_name))
 

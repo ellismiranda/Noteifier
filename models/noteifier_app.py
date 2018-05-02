@@ -1,16 +1,14 @@
 from noteifier import Noteifier
 from threading import Thread
-from models.designs import NewNoteDialog
 from handlers import tools
 from models.constants import app_menu, monitored_applications
 import rumps
-import os   
-import wx
+import os
 
 
 class NoteifierApp(rumps.App):
     def __init__(self):
-        super(NoteifierApp, self).__init__("Test App")
+        super(NoteifierApp, self).__init__("Noteifier")
         self.currdir = str(os.getcwd())
         self.icon = 'assets/icon.png'
         self.menu = app_menu
