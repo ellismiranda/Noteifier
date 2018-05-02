@@ -1,4 +1,3 @@
-import rumps
 
 
 monitored_applications = {
