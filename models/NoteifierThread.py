@@ -9,8 +9,7 @@ class NoteifierThread(threading.Thread):
 
     def __init__(self):
         super().__init__()
-        self.accounted_for = {app for app in parse_application_names(get_active_applications()) if
-                              app in monitored_applications}
+        self.accounted_for = {app for app in parse_application_names(get_active_applications()) if app in monitored_applications}
         self.paused = threading.Event()
         self.paused.clear()
 
