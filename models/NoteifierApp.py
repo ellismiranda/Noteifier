@@ -1,5 +1,5 @@
 # (Heavy) Reference: https://stackoverflow.com/questions/6389580/quick-and-easy-trayicon-with-python
-from models.noteifier import Noteifier
+from models.NoteifierThread import NoteifierThread
 from threading import Thread
 from models import NewNoteDialog, NewApplicationDialog
 from wx import adv
@@ -11,16 +11,15 @@ TRAY_ICON = 'assets/icon_new.png'
 
 
 class NoteifierTaskBar(adv.TaskBarIcon):
-    def __init__(self,frame):
+    def __init__(self, frame):
         adv.TaskBarIcon.__init__(self)
         self.currdir = str(os.getcwd())
         self.app_frame = frame
         self.SetIcon(wx.Icon(TRAY_ICON), TRAY_TOOLTIP)
         self.Bind(adv.EVT_TASKBAR_LEFT_DOWN, self.on_left_down)
 
-        self.noteifier = Noteifier()
-        self.monitor = Thread(target=self.noteifier.run,)
-        self.monitor.start()
+        self.noteifier = NoteifierThread()
+        self.noteifier.start()
 
     def CreatePopupMenu(self):
         self.menu = wx.Menu()

@@ -7,7 +7,7 @@ Usage:
 
 from setuptools import setup
 
-APP = ['noteifier_app.py']
+APP = ['main.py']
 DATA_FILES = ['--iconfile', 'assets/icon.png']
 OPTIONS = {}
 

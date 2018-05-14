@@ -27,6 +27,11 @@ def notify(message='default', title=None, subtitle=None, command=None):
     os.system('terminal-notifier {}'.format(' '.join([i, t, s, m, e])))
 
 
+def notify_notes(application, command=None):
+    notify(message='Click on me to open notes about {}'.format(application), title='Noteifier', command=command)
+
+
+
 # def open_many_files(files):
 #     cwd = os.getcwd()
 #     for file in files:
