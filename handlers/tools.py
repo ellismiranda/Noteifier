@@ -1,13 +1,6 @@
-import os
 import random
-
-
-# def app_to_keyword(app):
-#     return monitored_applications[app][1]
-
-
-# def app_to_name(app):
-#     return monitored_applications[app][0]
+import json
+import os
 
 
 def account_for_spaces(string):
@@ -29,18 +22,6 @@ def notify(message='default', title=None, subtitle=None, command=None):
 
 def notify_notes(application, command=None):
     notify(message='Click on me to open notes about {}'.format(application), title='Noteifier', command=command)
-
-
-
-# def open_many_files(files):
-#     cwd = os.getcwd()
-#     for file in files:
-#         os.system('open {}'.format(os.path.join(str(cwd), 'documents/', file)))
-
-
-# def contains(file, keyword):
-#     with open(os.path.join(str(os.getcwd()), 'documents/', file), 'r') as f:
-#         return keyword in f.read()
 
 
 def get_documents():
