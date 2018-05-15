@@ -1,6 +1,5 @@
 # (Heavy) Reference: https://stackoverflow.com/questions/6389580/quick-and-easy-trayicon-with-python
 from models.NoteifierThread import NoteifierThread
-from threading import Thread
 from models import NewNoteDialog, NewApplicationDialog
 from wx import adv
 import wx
@@ -54,10 +53,10 @@ class NoteifierTaskBar(adv.TaskBarIcon):
         pass
 
     def new_note(self, event):
-        NewNoteDialog.NewNoteDialog(None)
+        NewNoteDialog.NewNoteDialog(None, self.noteifier)
 
     def new_app(self, event):
-        NewApplicationDialog.NewApplicationDialog(None)
+        NewApplicationDialog.NewApplicationDialog(None, self.noteifier)
 
     def on_exit(self, event):
         self.app_frame.Close()
@@ -72,7 +71,7 @@ class NoteifierApp(wx.Frame):
         self.Bind(wx.EVT_CLOSE, self.onClose)
 
     def onClose(self, event):
-        self.app.noteifier.pause()
+        self.app.noteifier.quit()
         self.app.RemoveIcon()
         self.app.Destroy()
         self.Destroy()
