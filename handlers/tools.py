@@ -1,3 +1,4 @@
+from models.constants import PATH_MONITORED_APPLICATIONS
 import random
 import json
 import os
@@ -45,3 +46,23 @@ def new_note(app_name, content, dirr):
         file_name = app_name + '-' + str(random.randint(0, 10000)) + '.txt'
     with open(dirr + '/documents/{}.txt'.format(file_name), 'w') as f:
         f.write(content)
+
+
+def store_monitored(apps_json):
+    with open(str(os.getcwd()) + PATH_MONITORED_APPLICATIONS, 'w') as f:
+        f.truncate()
+        json.dump(apps_json, f)
+
+
+def load_monitored():
+    try:
+        with open(str(os.getcwd()) + PATH_MONITORED_APPLICATIONS, 'r') as f:
+            data = f.read()
+            return json.loads(data)
+    except IOError:
+        with open(str(os.getcwd()) + PATH_MONITORED_APPLICATIONS, 'w') as f:
+            f.write(json.dumps({}))
+        return {}
+
+
+
