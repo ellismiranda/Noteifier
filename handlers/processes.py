@@ -1,4 +1,3 @@
-from models.constants import monitored_applications
 import subprocess
 import re
 
@@ -25,8 +24,8 @@ def is_application_active(process):
     return process in parse_application_names(get_active_applications())
 
 
-def monitor_new_process(app_name):
+def monitor_new_process(app_name, noteifier):
     named_processes = [app for app in get_active_applications() if app_name in app]
-    monitored_applications[app_name] = named_processes
+    noteifier.monitored_applications[app_name] = named_processes
     print('Added {}.'.format(app_name))
 
