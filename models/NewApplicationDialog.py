@@ -1,11 +1,12 @@
-from models.constants import monitored_applications
-from handlers import tools, processes
+from handlers import processes
 import wx
 
 
 class NewApplicationDialog(wx.Dialog):
 
-    def __init__(self, parent):
+    def __init__(self, parent, noteifier):
+        self.noteifier = noteifier
+
         wx.Dialog.__init__(self, parent, wx.ID_ANY, "Monitor New Process", size=(400, 130), style=wx.DEFAULT_DIALOG_STYLE | wx.STAY_ON_TOP)
         self.panel = wx.Panel(self, wx.ID_ANY)
 
@@ -29,7 +30,7 @@ class NewApplicationDialog(wx.Dialog):
         self.Destroy()
 
     def save_app(self, event):
-        if self.app.GetValue() in monitored_applications:
+        if self.app.GetValue() in self.noteifier.monitored_applications:
             self.lblerror.Destroy()
             self.lblerror = wx.StaticText(self.panel, label="Already monitoring {}.".format(self.app.GetValue()), pos=(10, 47))
             self.lblerror.SetForegroundColour((255, 0, 0))
@@ -38,5 +39,5 @@ class NewApplicationDialog(wx.Dialog):
             self.lblerror = wx.StaticText(self.panel, label="ERROR: Application not found. Please check spelling.", pos=(10, 47))
             self.lblerror.SetForegroundColour((255, 0, 0))
         else:
-            processes.monitor_new_process(self.app.GetValue())
+            processes.monitor_new_process(self.app.GetValue(), self.noteifier)
             self.Destroy()

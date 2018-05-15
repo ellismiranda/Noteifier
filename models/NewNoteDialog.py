@@ -1,4 +1,3 @@
-from models.constants import monitored_applications
 from handlers import tools
 import wx
 import os
@@ -7,7 +6,9 @@ import os
 # (Heavy) Reference: https://stackoverflow.com/questions/42796950/python-using-wxpython-to-get-multiple-input-from-user
 class NewNoteDialog(wx.Dialog):
 
-    def __init__(self, parent):
+    def __init__(self, parent, noteifier):
+        self.noteifier = noteifier
+
         wx.Dialog.__init__(self, parent, wx.ID_ANY, "New Note", size=(400, 300), style=wx.DEFAULT_DIALOG_STYLE | wx.STAY_ON_TOP)
         self.panel = wx.Panel(self, wx.ID_ANY)
 
@@ -33,7 +34,7 @@ class NewNoteDialog(wx.Dialog):
         self.Destroy()
 
     def save_note(self, event):
-        if self.app.GetValue() not in monitored_applications:
+        if self.app.GetValue() not in self.noteifier.monitored_applications:
             self.lblerror.Destroy()
             self.lblerror = wx.StaticText(self.panel, label='ERROR: Application name not found.', pos=(110, 250))
             self.lblerror.SetForegroundColour((255, 0, 0))

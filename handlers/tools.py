@@ -1,13 +1,7 @@
-import os
+from models.constants import PATH_MONITORED_APPLICATIONS
 import random
-
-
-# def app_to_keyword(app):
-#     return monitored_applications[app][1]
-
-
-# def app_to_name(app):
-#     return monitored_applications[app][0]
+import json
+import os
 
 
 def account_for_spaces(string):
@@ -31,18 +25,6 @@ def notify_notes(application, command=None):
     notify(message='Click on me to open notes about {}'.format(application), title='Noteifier', command=command)
 
 
-
-# def open_many_files(files):
-#     cwd = os.getcwd()
-#     for file in files:
-#         os.system('open {}'.format(os.path.join(str(cwd), 'documents/', file)))
-
-
-# def contains(file, keyword):
-#     with open(os.path.join(str(os.getcwd()), 'documents/', file), 'r') as f:
-#         return keyword in f.read()
-
-
 def get_documents():
     return os.listdir(os.path.join(str(os.getcwd()), 'documents/'))
 
@@ -64,3 +46,23 @@ def new_note(app_name, content, dirr):
         file_name = app_name + '-' + str(random.randint(0, 10000)) + '.txt'
     with open(dirr + '/documents/{}.txt'.format(file_name), 'w') as f:
         f.write(content)
+
+
+def store_monitored(apps_json):
+    with open(str(os.getcwd()) + PATH_MONITORED_APPLICATIONS, 'w') as f:
+        f.truncate()
+        json.dump(apps_json, f)
+
+
+def load_monitored():
+    try:
+        with open(str(os.getcwd()) + PATH_MONITORED_APPLICATIONS, 'r') as f:
+            data = f.read()
+            return json.loads(data)
+    except IOError:
+        with open(str(os.getcwd()) + PATH_MONITORED_APPLICATIONS, 'w') as f:
+            f.write(json.dumps({}))
+        return {}
+
+
+
